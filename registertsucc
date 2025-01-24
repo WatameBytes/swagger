@@ -1,0 +1,83 @@
+description: Response given from the backend when the user wishes to register a passkey.
+type: object
+properties:
+  registrationId:
+    type: string
+    example: "reg123"
+    description: A unique identifier for the registration process.
+  publicKeyCredentialOptions:
+    type: object # We return it as a string but represent it as an object for clarity.
+    description: Options for creating a new public key credential in WebAuthn.
+    properties:
+      rp:
+        type: object
+        description: Contains data about the Relying Party responsible for the request.
+        properties:
+          id:
+            type: string
+            example: "example.com"
+            description: The RP ID the credential should be scoped to.
+          name:
+            type: string
+            example: "Example Relying Party"
+            description: The display name of the Relying Party.
+      user:
+        type: object
+        description: Information about the user account for which the credential is being created.
+        properties:
+          id:
+            type: string
+            example: "user123"
+            description: A unique identifier for the user.
+          name:
+            type: string
+            example: "exampleUser"
+            description: The user's display name.
+      challenge:
+        type: string
+        description: A cryptographic challenge for generating the credential’s attestation.
+        example: "randomChallengeString"
+      pubKeyCredParams:
+        type: array
+        description: Information about the desired properties of the credential to be created.
+        items:
+          type: object
+          properties:
+            type:
+              type: string
+              example: "public-key"
+              description: The type of credential.
+            alg:
+              type: integer
+              example: -7
+              description: The cryptographic algorithm used.
+      timeout:
+        type: integer
+        example: 60000
+        description: Time in milliseconds the caller is willing to wait for the call to complete.
+      excludeCredentials:
+        type: array
+        description: A list of credentials to exclude from the creation process.
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              example: "credential123"
+              description: The ID of the excluded credential.
+      authenticatorSelection:
+        type: object
+        description: Criteria for selecting authenticators to participate in the process.
+        properties:
+          requireResidentKey:
+            type: boolean
+            example: true
+            description: Indicates whether resident keys are required.
+      attestation:
+        type: string
+        example: "none"
+        description: Indicates the preference for attestation conveyance.
+      extensions:
+        type: object
+        description: Additional processing options for the client and authenticator.
+        example: {}
