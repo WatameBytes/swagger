@@ -1,3 +1,20 @@
+
+                  example: >-
+                    {
+                      "id": "CyGXPVzBF_jv_AXA_0ekC34Eku_fVOJh_OGdA9R4zU8",
+                      "rawId": "CyGXPVzBF_jv_AXA_0ekC34Eku_fVOJh_OGdA9R4zU8",
+                      "type": "public-key",
+                      "authenticatorAttachment": "platform",
+                      "clientExtensionResults": {},
+                      "response": {
+                        "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YVkBZ0mWDeWIDoxodDQXD2R2YFuP5K65ooYyx5lc87qDHZdjRQAAAAAAAAAAAAAAAAAAAAAAAAAAACALIZc9XMEX-O_8BcD_R6QLfgSS799U4mH84Z0D1HjNT6QBAwM5AQAgWQEA2zVJxjfrlNuWcmBzns1cZLiXmGNNvDYyfBG8vgRSoIr8hkxhWm5DmC1mb1t5tCBchtj_yIIf_eOYwcninQeDRRK2I2jLVecoDBfDZ7Yt2ueBeRLqa-RS-ilp8_NSKZtnU8IqGUojCaeZi7aKI5EEdCgezPK2U28018-ArqJEQLrf7DIGBDfGGZ7XoLCUV5zzk-VFmIQB2MOkGx_vP8Y3Hk06Frkvg0nbOQP99xKfynSBIqego6GS7A1C1XnAmb6owuac_YQqKlh_iuNep3hefiXM8du7uGbhIo_6MqW8E1rDodPguNAEq_OI8RWLwwpYmrAwPjvkr9AldKnlC8H1xSFDAQAB",
+                        "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoia0VJOW5tbmo4RUhlc2xMcU10VXVZTmxkZVhMMU1meWJ3ajZWSHBlME9OYyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9",
+                        "publicKeyAlgorithm": -257
+                      }
+                    }
+
+
+
 description: Response given from the backend when the user wishes to register a passkey.
 type: object
 properties:
