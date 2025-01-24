@@ -5,6 +5,62 @@ requestBody:
     application/json:
       schema:
         type: object
+        description: Request body containing the assertion details.
+        properties:
+          assertionId:
+            type: string
+            description: Unique identifier for the assertion request.
+            example: "bd00fc5d-9e43-4c86-99cb-cdf50e89cc4d"
+          publicKeyCredentialJson:
+            type: object
+            description: Object representation of the public key credential (commonly passed as a stringified JSON).
+            properties:
+              type:
+                type: string
+                description: The type of credential.
+                example: "public-key"
+              id:
+                type: string
+                description: A unique identifier for the credential.
+                example: "CyGXPVzBF_jv_AXA_0ekC34Eku_fVOJh_OGdA9R4zU8"
+              rawId:
+                type: string
+                description: Base64url-encoded unique identifier for the credential.
+                example: "CyGXPVzBF_jv_AXA_0ekC34Eku_fVOJh_OGdA9R4zU8"
+              response:
+                type: object
+                description: Response object containing the credential's data.
+                properties:
+                  authenticatorData:
+                    type: string
+                    description: Base64url-encoded authenticator data.
+                    example: "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAQ"
+                  clientDataJSON:
+                    type: string
+                    description: Base64url-encoded client data JSON.
+                    example: "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiSH..."
+                  signature:
+                    type: string
+                    description: Base64url-encoded cryptographic signature.
+                    example: "q5ygiwgKKrFCODHoROzf1LfJpEi7OM_JPbvXA4O1GHsPxdGj..."
+                  userHandle:
+                    type: string
+                    description: Base64url-encoded user handle (optional).
+                    example: "Z3VpZDFndWlkMWd1aWQ"
+              clientExtensionResults:
+                type: object
+                description: Object containing client extensions (usually empty).
+                example: {}
+
+
+
+requestBody:
+  description: Assertion finish request containing a public key credential.
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
         description: Object containing assertion details for WebAuthn.
         properties:
           assertionId:
