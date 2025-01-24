@@ -1,157 +1,17 @@
-description: Object containing user and authentication details.
-type: object
-properties:
-  authToken:
-    type: string
-    description: The authentication token.
-    example: "abcd1234efgh5678ijkl9012mnop3456"
-  privateGuid:
-    type: string
-    description: The private GUID.
-    example: "123e4567-e89b-12d3-a456-426614174000"
-  publicGuid:
-    type: string
-    description: The public GUID.
-    example: "987e6543-e21b-32d1-b654-426614174999"
-  maskedUserId:
-    type: string
-    description: The masked user ID.
-    example: "user123***"
-  userBitMask:
-    type: string
-    description: User bit mask.
-    example: "11001100"
+def process_file(input_file, output_file):
+    environments = ["e0", "e1", "e2", "e3"]
 
+    with open(input_file, 'r') as infile, open(output_file, 'w') as outfile:
+        for line in infile:
+            if line.strip():  # Skip empty lines
+                # Extract the name inside the pipes (|)
+                name = line.strip().split('|')[1].strip()
+                for env in environments:
+                    # Construct the new line with environment and path
+                    path = f"'/config/{name}/{env}/endpoints.json'"
+                    outfile.write(f"| {name.ljust(30)} | {env} | {path} |\n")
 
-
-requestBody:
-  description: Assertion finish request containing a public key credential.
-  required: true
-  content:
-    application/json:
-      schema:
-        type: object
-        description: Request body containing the assertion details.
-        properties:
-          assertionId:
-            type: string
-            description: Unique identifier for the assertion request.
-            example: "bd00fc5d-9e43-4c86-99cb-cdf50e89cc4d"
-          publicKeyCredentialJson:
-            type: object
-            description: Object representation of the public key credential (commonly passed as a stringified JSON).
-            properties:
-              type:
-                type: string
-                description: The type of credential.
-                example: "public-key"
-              id:
-                type: string
-                description: A unique identifier for the credential.
-                example: "CyGXPVzBF_jv_AXA_0ekC34Eku_fVOJh_OGdA9R4zU8"
-              rawId:
-                type: string
-                description: Base64url-encoded unique identifier for the credential.
-                example: "CyGXPVzBF_jv_AXA_0ekC34Eku_fVOJh_OGdA9R4zU8"
-              response:
-                type: object
-                description: Response object containing the credential's data.
-                properties:
-                  authenticatorData:
-                    type: string
-                    description: Base64url-encoded authenticator data.
-                    example: "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAQ"
-                  clientDataJSON:
-                    type: string
-                    description: Base64url-encoded client data JSON.
-                    example: "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiSH..."
-                  signature:
-                    type: string
-                    description: Base64url-encoded cryptographic signature.
-                    example: "q5ygiwgKKrFCODHoROzf1LfJpEi7OM_JPbvXA4O1GHsPxdGj..."
-                  userHandle:
-                    type: string
-                    description: Base64url-encoded user handle (optional).
-                    example: "Z3VpZDFndWlkMWd1aWQ"
-              clientExtensionResults:
-                type: object
-                description: Object containing client extensions (usually empty).
-                example: {}
-
-
-
-requestBody:
-  description: Assertion finish request containing a public key credential.
-  required: true
-  content:
-    application/json:
-      schema:
-        type: object
-        description: Object containing assertion details for WebAuthn.
-        properties:
-          assertionId:
-            type: string
-            description: Unique identifier for the assertion request.
-            example: "bd00fc5d-9e43-4c86-99cb-cdf50e89cc4d"
-          publicKeyCredentialJson:
-            type: string
-            description: Stringified JSON representation of a public key credential object.
-            example: >-
-              {
-                "type": "public-key",
-                "id": "CyGXPVzBF_jv_AXA_0ekC34Eku_fVOJh_OGdA9R4zU8",
-                "rawId": "CyGXPVzBF_jv_AXA_0ekC34Eku_fVOJh_OGdA9R4zU8",
-                "response": {
-                  "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAQ",
-                  "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoi...",
-                  "signature": "q5ygiwgKKrFCODHoROzf1LfJpEi7OM_JPbvXA4O1GHs...",
-                  "userHandle": "Z3VpZDFndWlkMWd1aWQ"
-                },
-                "clientExtensionResults": {}
-              }
-
-description: Response given from the backend when the user wishes to authenticate with a passkey.
-type: object
-properties:
-  assertionId:
-    type: string
-    example: "assertion123"
-    description: A unique identifier for the assertion process.
-  credentialGetJson:
-    type: object # We return it as a string, but represent it as an object for clarity.
-    description: Options for retrieving a public key credential in WebAuthn.
-    properties:
-      rpId:
-        type: string
-        example: "example.com"
-        description: The RP ID the credential should be scoped to.
-      challenge:
-        type: string
-        description: A cryptographic challenge for generating the credential’s assertion.
-        example: "randomChallengeString"
-      allowCredentials:
-        type: array
-        description: A list of credentials that are allowed to be used for the assertion.
-        items:
-          type: object
-          properties:
-            id:
-              type: string
-              example: "credential123"
-              description: The ID of the allowed credential.
-            type:
-              type: string
-              example: "public-key"
-              description: The type of credential.
-      timeout:
-        type: integer
-        example: 60000
-        description: Time in milliseconds the caller is willing to wait for the operation to complete.
-      userVerification:
-        type: string
-        example: "preferred"
-        description: Indicates whether user verification is preferred, required, or discouraged.
-      extensions:
-        type: object
-        description: Additional processing options for the client and authenticator.
-        example: {}
+# Example usage
+input_file = 'input.txt'  # Replace with your input file
+output_file = 'output.txt'  # Replace with your desired output file
+process_file(input_file, output_file)
