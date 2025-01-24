@@ -1,3 +1,29 @@
+description: Object containing user and authentication details.
+type: object
+properties:
+  authToken:
+    type: string
+    description: The authentication token.
+    example: "abcd1234efgh5678ijkl9012mnop3456"
+  privateGuid:
+    type: string
+    description: The private GUID.
+    example: "123e4567-e89b-12d3-a456-426614174000"
+  publicGuid:
+    type: string
+    description: The public GUID.
+    example: "987e6543-e21b-32d1-b654-426614174999"
+  maskedUserId:
+    type: string
+    description: The masked user ID.
+    example: "user123***"
+  userBitMask:
+    type: string
+    description: User bit mask.
+    example: "11001100"
+
+
+
 requestBody:
   description: Assertion finish request containing a public key credential.
   required: true
