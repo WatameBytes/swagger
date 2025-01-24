@@ -1,0 +1,45 @@
+description: Response given from the backend when the user wishes to authenticate with a passkey.
+type: object
+properties:
+  assertionId:
+    type: string
+    example: "assertion123"
+    description: A unique identifier for the assertion process.
+  credentialGetJson:
+    type: object # We return it as a string, but represent it as an object for clarity.
+    description: Options for retrieving a public key credential in WebAuthn.
+    properties:
+      rpId:
+        type: string
+        example: "example.com"
+        description: The RP ID the credential should be scoped to.
+      challenge:
+        type: string
+        description: A cryptographic challenge for generating the credential’s assertion.
+        example: "randomChallengeString"
+      allowCredentials:
+        type: array
+        description: A list of credentials that are allowed to be used for the assertion.
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              example: "credential123"
+              description: The ID of the allowed credential.
+            type:
+              type: string
+              example: "public-key"
+              description: The type of credential.
+      timeout:
+        type: integer
+        example: 60000
+        description: Time in milliseconds the caller is willing to wait for the operation to complete.
+      userVerification:
+        type: string
+        example: "preferred"
+        description: Indicates whether user verification is preferred, required, or discouraged.
+      extensions:
+        type: object
+        description: Additional processing options for the client and authenticator.
+        example: {}
