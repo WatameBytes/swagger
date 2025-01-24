@@ -1,3 +1,33 @@
+requestBody:
+  description: Assertion finish request containing a public key credential.
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        description: Object containing assertion details for WebAuthn.
+        properties:
+          assertionId:
+            type: string
+            description: Unique identifier for the assertion request.
+            example: "bd00fc5d-9e43-4c86-99cb-cdf50e89cc4d"
+          publicKeyCredentialJson:
+            type: string
+            description: Stringified JSON representation of a public key credential object.
+            example: >-
+              {
+                "type": "public-key",
+                "id": "CyGXPVzBF_jv_AXA_0ekC34Eku_fVOJh_OGdA9R4zU8",
+                "rawId": "CyGXPVzBF_jv_AXA_0ekC34Eku_fVOJh_OGdA9R4zU8",
+                "response": {
+                  "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAQ",
+                  "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoi...",
+                  "signature": "q5ygiwgKKrFCODHoROzf1LfJpEi7OM_JPbvXA4O1GHs...",
+                  "userHandle": "Z3VpZDFndWlkMWd1aWQ"
+                },
+                "clientExtensionResults": {}
+              }
+
 description: Response given from the backend when the user wishes to authenticate with a passkey.
 type: object
 properties:
