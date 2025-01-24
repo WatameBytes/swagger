@@ -1,3 +1,5 @@
+import os
+
 def process_file(input_file, output_file):
     environments = ["e0", "e1", "e2", "e3"]
 
@@ -8,8 +10,32 @@ def process_file(input_file, output_file):
                 name = line.strip().split('|')[1].strip()
                 for env in environments:
                     # Construct the new line with environment and path
-                    path = f"'/config/{name}/{env}/endpoints.json'"
-                    outfile.write(f"| {name.ljust(30)} | {env} | {path} |\n")
+                    path = f"/config/{name}/{env}/endpoints.json"
+                    outfile.write(f"| {name.ljust(30)} | {env} | '{path}' |\n")
+
+                    # Create folder structure and files
+                    base_folder = f"{name}"
+                    env_folder = os.path.join(base_folder, env)
+                    os.makedirs(env_folder, exist_ok=True)  # Create environment folder
+
+                    # Create endpoints.json in each env folder
+                    endpoints_file = os.path.join(env_folder, "endpoints.json")
+                    with open(endpoints_file, 'w') as file:
+                        file.write('')
+
+                    # Create lambda-config.json in each env folder
+                    lambda_config_file = os.path.join(env_folder, "lambda-config.json")
+                    with open(lambda_config_file, 'w') as file:
+                        file.write('')
+
+                # Create lambda.json and lambda-config-schema.json in the base folder
+                lambda_file = os.path.join(base_folder, "lambda.json")
+                with open(lambda_file, 'w') as file:
+                    file.write('')
+
+                lambda_config_schema_file = os.path.join(base_folder, "lambda-config-schema.json")
+                with open(lambda_config_schema_file, 'w') as file:
+                    file.write('')
 
 # Example usage
 input_file = 'input.txt'  # Replace with your input file
